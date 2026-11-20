@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f5f7fb">
+  <meta name="description" content="A centralized campus complaint portal for students and administrators.">
+  <title>CampusCare — Smart Campus Helpdesk</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <a class="brand" href="#" aria-label="CampusCare home">
+        <span class="brand-mark" aria-hidden="true">C</span>
+        <span class="brand-copy"><strong>CampusCare</strong><small>SMART HELPDESK</small></span>
+      </a>
+      <div class="campus-label">CAMPUS SERVICES</div>
+      <nav class="side-nav" aria-label="Main navigation">
+        <button class="nav-item active" type="button" data-view="student"><span class="nav-icon" aria-hidden="true">▤</span> Student portal</button>
+        <button class="nav-item" type="button" data-view="admin"><span class="nav-icon" aria-hidden="true">▦</span> Admin dashboard</button>
+      </nav>
+      <div class="sidebar-bottom">
+        <div class="help-card">
+          <span class="help-spark" aria-hidden="true">✳</span>
+          <strong>Something not right?</strong>
+          <p>Let us know. The right team will take it from here.</p>
+        </div>
+        <div class="sidebar-foot"><span class="online-dot"></span> Campus support is online</div>
+      </div>
+    </aside>
+
+    <main class="main-content">
+      <header class="topbar">
+        <div class="breadcrumb"><span>Campus services</span><span class="crumb-sep">/</span><strong id="breadcrumb-current">Student portal</strong></div>
+        <div class="topbar-right"><span class="local-badge" aria-live="polite"><span id="backend-status-indicator" class="online-dot" aria-hidden="true"></span><span id="backend-status-text">Connecting to database…</span></span><span class="avatar" aria-label="Campus user">CC</span></div>
+      </header>
+
+      <section id="student-view" class="view-panel">
+        <div class="page-heading">
+          <div><div class="eyebrow">YOUR CAMPUS, BETTER</div><h1>How can we help?</h1><p class="page-subtitle">Report an issue and keep an eye on it, all in one place.</p></div>
+          <div class="date-chip"><span class="date-icon" aria-hidden="true">◷</span> Usually reviewed within 24 hours</div>
+        </div>
+
+        <div class="student-grid">
+          <section class="panel form-panel" aria-labelledby="form-title">
+            <div class="panel-heading">
+              <div><span class="section-kicker">NEW REQUEST</span><h2 id="form-title">Submit a complaint</h2></div>
+              <span class="step-badge">01 <span>/ 02</span></span>
+            </div>
+            <p class="panel-description">Tell us what's going on. We'll make sure it reaches the right people.</p>
+            <form id="complaint-form">
+              <div class="form-row">
+                <label class="field">Your name <span class="required">*</span>
+                  <input id="student-name" name="name" type="text" placeholder="e.g. Aanya Sharma" maxlength="70" autocomplete="name" required>
+                </label>
+                <label class="field">Department <span class="required">*</span>
+                  <select id="department" name="department" required>
+                    <option value="" disabled selected>Select department</option>
+                    <option>Computer Science</option><option>Engineering</option><option>Business &amp; Management</option><option>Arts &amp; Humanities</option><option>Life Sciences</option><option>Physical Sciences</option><option>Law</option><option>Architecture</option><option>Other</option>
+                  </select>
+                </label>
+              </div>
+              <label class="field">Complaint category <span class="required">*</span>
+                <select id="category" name="category" required>
+                  <option value="" disabled selected>Choose an area</option>
+                  <option>Classroom</option><option>Wi-Fi</option><option>Drinking water</option><option>Laboratory equipment</option><option>Washroom</option><option>Hostel maintenance</option><option>Other</option>
+                </select>
+              </label>
+              <label class="field">Describe the issue <span class="required">*</span>
+                <textarea id="description" name="description" rows="4" minlength="10" maxlength="1000" placeholder="Where is the issue, and what happened? Add any details that could help us fix it." required></textarea>
+                <span class="field-hint"><span>At least 10 characters</span><span id="char-count">0 / 1000</span></span>
+              </label>
+              <div id="ai-suggestion" class="ai-suggestion" aria-live="polite">
+                <span class="ai-icon" aria-hidden="true">✦</span><span class="suggestion-copy"><strong>Smart assist</strong><span>Start describing your issue for a category and priority suggestion.</span></span>
+              </div>
+              <div class="form-footer"><span class="required-note"><span class="required">*</span> Required fields</span><button class="button button-primary" type="submit">Submit complaint <span aria-hidden="true">→</span></button></div>
+            </form>
+          </section>
+
+          <div class="student-side">
+            <section class="panel search-panel" aria-labelledby="search-title">
+              <div class="search-panel-top"><span class="search-icon" aria-hidden="true">⌕</span><span class="section-kicker">QUICK TRACK</span></div>
+              <h2 id="search-title">Looking for an update?</h2>
+              <p class="panel-description">Enter your complaint ID to find it in your list.</p>
+              <form id="search-form" class="search-form">
+                <label class="sr-only" for="search-id">Complaint ID</label>
+                <input id="search-id" type="search" placeholder="e.g. CC-2026-001" autocomplete="off">
+                <button class="button button-dark" type="submit">Search</button>
+              </form>
+              <button id="clear-search" class="clear-search" type="button" hidden>Clear search <span aria-hidden="true">×</span></button>
+            </section>
+            <section class="tip-card">
+              <div class="tip-icon" aria-hidden="true">✳</div>
+              <div><strong>A little detail goes a long way</strong><p>Include a building or room number so the facilities team can find the issue faster.</p></div>
+            </section>
+            <div class="privacy-note"><span aria-hidden="true">♧</span> Your information is only shared with the team handling your request.</div>
+          </div>
+        </div>
+
+        <section class="complaints-section" aria-labelledby="complaints-title">
+          <div class="list-heading">
+            <div><span class="section-kicker">YOUR REQUESTS</span><h2 id="complaints-title">Recent complaints <span class="count-pill" id="student-count">0</span></h2></div>
+            <span class="updated-label"><span class="online-dot"></span> Updates automatically</span>
+          </div>
+          <div id="student-complaints" class="complaint-list"></div>
+          <div id="empty-state" class="empty-state" hidden><span class="empty-icon" aria-hidden="true">◎</span><strong id="empty-title">No complaints yet</strong><p id="empty-message">Submit a complaint above and it will appear here.</p></div>
+        </section>
+      </section>
+
+      <section id="admin-view" class="view-panel" hidden>
+        <div class="page-heading admin-heading">
+          <div><div class="eyebrow">CAMPUS OPERATIONS</div><h1>Complaints overview</h1><p class="page-subtitle">A clear view of what's happening across campus.</p></div>
+          <button id="export-button" class="button button-outline" type="button"><span aria-hidden="true">↓</span> Export CSV</button>
+        </div>
+        <div class="stats-grid" aria-label="Complaint statistics">
+          <article class="stat-card stat-total"><div class="stat-top"><span>Total complaints</span><span class="stat-symbol">▤</span></div><div class="stat-number" id="stat-total">0</div><div class="stat-caption">All reported issues</div></article>
+          <article class="stat-card stat-pending"><div class="stat-top"><span>Pending</span><span class="stat-symbol">◷</span></div><div class="stat-number" id="stat-pending">0</div><div class="stat-caption">Awaiting review</div></article>
+          <article class="stat-card stat-progress"><div class="stat-top"><span>In progress</span><span class="stat-symbol">↗</span></div><div class="stat-number" id="stat-progress">0</div><div class="stat-caption">Being worked on</div></article>
+          <article class="stat-card stat-resolved"><div class="stat-top"><span>Resolved</span><span class="stat-symbol">✓</span></div><div class="stat-number" id="stat-resolved">0</div><div class="stat-caption">Successfully completed</div></article>
+        </div>
+        <section class="panel admin-table-panel">
+          <div class="table-panel-heading"><div><span class="section-kicker">SERVICE DESK</span><h2>All complaints <span class="count-pill" id="admin-count">0</span></h2></div>
+            <div class="filters">
+              <label class="sr-only" for="filter-category">Filter by category</label><select id="filter-category"><option value="">All categories</option><option>Classroom</option><option>Wi-Fi</option><option>Drinking water</option><option>Laboratory equipment</option><option>Washroom</option><option>Hostel maintenance</option><option>Other</option></select>
+              <label class="sr-only" for="filter-status">Filter by status</label><select id="filter-status"><option value="">All statuses</option><option>Pending</option><option>In Progress</option><option>Resolved</option></select>
+            </div>
+          </div>
+          <div class="table-scroll"><table><thead><tr><th>COMPLAINT</th><th>STUDENT</th><th>CATEGORY</th><th>PRIORITY</th><th>SUBMITTED</th><th>STATUS</th></tr></thead><tbody id="admin-rows"></tbody></table></div>
+          <div id="admin-empty" class="table-empty" hidden>No complaints match these filters.</div>
+          <div class="table-footer"><span id="table-summary">Showing 0 complaints</span><span><span class="online-dot"></span> Live server data</span></div>
+        </section>
+        <p class="admin-footnote"><span aria-hidden="true">✦</span> Priority is suggested automatically from issue keywords. Review it alongside the complaint details.</p>
+      </section>
+    </main>
+  </div>
+  <div id="toast-region" class="toast-region" aria-live="polite" aria-atomic="true"></div>
+</body>
+</html>

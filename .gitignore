@@ -1,0 +1,4 @@
+node_modules/
+.env
+data/complaints.json
+data/complaints.json.tmp
